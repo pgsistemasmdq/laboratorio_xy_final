@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reactivos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../img/favicon.webp" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="title">
+            <a href="../index.html"><img src="../img/logo.webp" alt="Logo"></a>
+            <h1>GESTIÓN DE REACTIVOS</h1>
+        </div>
+        <div class="date-time" id="dateTime"></div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <a href="../pages/reactivos.html">📦 Reactivos</a>
+            <a href="../pages/pedidos.html">🛒 Pedidos</a>
+            <a href="../pages/reportes.html">📄 Reportes</a>
+            <a href="../pages/tablero.html">📊 Estadísticas</a>
+            <div class="divider"></div>
+            <a href="../pages/configuracion.html">⚙️ Configuración</a>
+            <a href="../pages/usuarios.html">👤 Usuario</a>
+        </nav>
+
+        <main class="main-content">
+            <h2>Configuracion</h2>
+            <div class="configuracion">
+                <div class="button-group-configuracion">
+                    <button class="button-configuracion" id="limpiarLocalStorage">Limpiar Local Storage</button>
+                    <p class="p-configuracion" id="textoLimpiarLocalStorage">Elimina todos los datos almacenados en el
+                        Local Storage.</p>
+                </div>
+
+                <div class="button-group-configuracion">
+                    <button class="button-configuracion" id="limpiarSessionStorage">Limpiar Session Storage</button>
+                    <p class="p-configuracion" id="textoLimpiarSessionStorage">Elimina todos los datos almacenados en el
+                        Session Storage.</p>
+                </div>
+
+
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="contact-info">
+            <p>📞 WhatsApp: <a href="https://wa.me/+549223665987" target="_blank">+54 9 223 665987</a></p>
+            <p>📧 Email: <a href="mailto:contacto@laboratorioxy.com">contacto@laboratorioxy.com</a></p>
+        </div>
+        <div class="author-info">
+            <p>Desarrollado por <strong>Pablo Gimenez</strong></p>
+        </div>
+    </footer>
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/utilidades.js"></script>
+    <script src="../clases/reactivo.js"></script>
+    <script src="../clases/proveedor.js"></script>
+    <script src="../scripts/configuracion.js"></script>
+</body>
+
+</html>

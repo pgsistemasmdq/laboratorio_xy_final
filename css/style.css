@@ -1,0 +1,539 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Encabezado */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2C3E50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .title {
+    display: flex;
+    align-items: center;
+}
+
+header .title img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+header .date-time {
+    font-size: 14px;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    flex: 1;
+    margin-top: 60px; /* Altura del header */
+    margin-bottom: 60px; /* Altura del footer */
+}
+
+/* Menú lateral */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 150px;
+    height: calc(100vh - 100px); /* Altura total menos header y footer */
+    background-color: #2C3E50;
+    color: white;
+    padding: 10px;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 13px;
+
+}
+
+.sidebar a:hover {
+    background-color: #34495E;
+}
+
+.sidebar .divider {
+    height: 1px;
+    background-color: white;
+    margin: 10px 0;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left:150px; /* Ancho del menú */
+    padding: 20px;
+    width: calc(100% - 150px); /* Ajusta el ancho disponible */
+    overflow-y: auto;
+    max-height: calc(100vh - 120px); /* Ajusta la altura disponible, restando la altura del header y footer */
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2C3E50;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Distribuir elementos equitativamente */
+    align-items: center; /* Centrar verticalmente los elementos */
+    font-size: 10px;
+    z-index: 1000;
+}
+
+footer .contact-info, 
+footer .author-info {
+    text-align: left;
+}
+
+footer .contact-info a {
+    color: #1ABC9C;
+    text-decoration: none;
+}
+
+footer .contact-info a:hover {
+    text-decoration: underline;
+}
+
+footer .author-info {
+    font-size: 12px;
+}
+
+/* FORMULARIOS */
+
+.hidden {
+    display: none;
+}
+
+/* Estilo del formulario */
+
+/* General */
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* .form-container {
+    margin-bottom: 20px;
+
+} */
+
+#reactivosForm {
+    margin-bottom: 0px;
+
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+label {
+    font-size: 14px;
+    width: 120px; /* Basado en la etiqueta más ancha */
+    text-align: right;
+    margin-right: 10px;
+}
+
+input, select {
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    max-width: 300px;
+}
+
+#codigo, #stock {
+    max-width: 100px;
+}
+
+#descripcion {
+    max-width: 100%;
+}
+
+#proveedor {
+    min-width: 160px;
+}
+
+#fecha {
+    max-width: 150px;
+}
+/* Botones con icono */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.icon-btn img {
+    width: 24px;
+    height: 24px;
+}
+/* Estilo para el div que contiene el select y el botón */
+.input-with-button {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaciado entre el select y el botón */
+}
+
+/* Indicador de error */
+.input-error {
+    border: 2px solid red;
+}
+
+/* Indicador de éxito */
+.input-success {
+    border: 2px solid green;
+}
+#agregarProveedor {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #0078D7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#agregarProveedor:hover {
+    background-color: #005bb5;
+}
+
+/* Botones de acción */
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+.form-actions-inline {
+    display: flex;
+    justify-content: flex-end; /* Alinear a la derecha */
+    gap: 10px; /* Espaciado entre los botones */
+    margin-top: 20px; /* Espaciado superior */
+}
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+button[type="submit"] {
+    background-color: #0078D7;
+    color: black;
+}
+
+button[type="button"] {
+    background-color: #f4f4f4;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+button:hover {
+    background-color: #005bb5;
+    color: white;
+}
+
+button[type="button"]:hover {
+    background-color: #e0e0e0;
+}
+
+
+#agregarBtn {
+    background-color:lightgreen;
+}
+
+#editarBtn {
+    background-color:wheat;
+}
+
+#borrarBtn {
+    background-color:tomato;
+}
+
+/*
+.busqueda-paginacion-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.busqueda {
+    display: flex;
+    align-items: center;
+}
+
+.busqueda input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.paginacion-container {
+    display: flex;
+    align-items: center;
+}
+
+.paginacion-container label {
+    margin-right: 10px;
+}
+
+.paginacion-container select {
+    margin-right: 20px;
+    padding: 5px;
+}
+
+.paginacion-botones button {
+    padding: 5px 10px;
+    margin-left: 5px;
+}
+*/
+/*BUSQUEDA y PAGINACION*/
+/* Contenedor de búsqueda y paginación */
+.busqueda-paginacion-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para la sección de búsqueda */
+.busqueda {
+    display: flex;
+    align-items: center;
+}
+
+.busqueda input {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.busqueda button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.busqueda button:hover {
+    background-color: #005bb5;
+}
+
+
+
+/* Contenedor para manejar el diseño */
+.tabla-container {
+    overflow-x: auto; /* Hacer scroll horizontal si es necesario */
+    /*margin: 20px 0;*/
+
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    max-height: calc(100vh - 200px); /* Ajusta según la altura total de la página */
+
+
+}
+
+/* Estilo general para la tabla */
+#tablaReactivos {
+    width: 100%; /* Asegura que ocupe el 100% del espacio disponible */
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12px;
+    margin-bottom: 0;
+    table-layout: fixed; /* Asegura que la tabla se ajuste al 100% */
+
+}
+
+#tablaReactivos th, #tablaReactivos td {
+    border: 1px solid #ddd; /* Bordes de las celdas */
+    padding: 8px; /* Espaciado interno */
+    text-align: left;
+}
+
+#tablaReactivos th {
+    background-color: #f2f2f2; /* Color de fondo para los encabezados */
+}
+
+#tablaReactivos td {
+    font-size: 10px;
+}
+#tablaReactivos tr {
+    line-height: 0.6;
+}
+
+/* Fila seleccionada */
+#tablaReactivos tr.selected {
+    background-color: #d3e9ff; /* Fondo azul claro */
+    font-weight: bold; /* Texto más destacado */
+}
+
+/* Efecto hover */
+#tablaReactivos tr:hover {
+    background-color: #f9f9f9; /* Fondo más claro */
+    cursor: pointer; /* Indicador de que es interactivo */
+}
+/* Ancho específico de las columnas */
+.col-5 {
+    width: 5%;
+}
+
+.col-10 {
+    width: 10%;
+}
+
+.col-20 {
+    width: 20%;
+}
+
+.col-40 {
+    width: 40%;
+}
+
+
+
+/*CONFIGURACION */
+.configuracion {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* Centrar el contenido dentro de la configuración */
+    border: 1px rgb(5, 5, 7) solid;
+    border-radius: 2%;
+}
+
+h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; /* Centrar el título */
+}
+
+.button-group-configuracion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.button-configuracion {
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #ccc;
+    width: 100%; /* Hacer que el botón tenga el mismo ancho */
+    background-color: #f0f0f0;
+    text-align: left; /* Alinear el texto dentro del botón a la izquierda */
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño del botón */
+    transition: background-color 0.3s ease;
+}
+
+.button-configuracion:hover {
+    background-color: #e0e0e0; /* Cambio de color al pasar el ratón */
+}
+
+.p-configuracion {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+    width: 80%; /* El texto explicativo ocupa menos espacio que el botón */
+    text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+}
+
+/* Para mejorar la apariencia visual */
+.button-group-configuracion > button,
+.button-group-configuracion > p {
+    width: 100%;
+    display: inline-block;
+}
+
+@media (min-width: 600px) {
+    .button-group-configuracion {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .button-configuracion {
+        width: 70%; /* En pantallas grandes, los botones tienen un tamaño menor */
+    }
+
+    .p-configuracion {
+        width: 30%; /* El texto ocupa el espacio restante */
+    }
+}
+
+.h2_desarrollo {
+    font-size: 14px;
+    color:  #2C3E50;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 20px;
+    text-align: center;
+
+}
+
+.imagen_desarrollo {
+    height: 60vh;              /* El alto será el 60% de la altura de la ventana */
+    width: auto;               /* La anchura se ajustará proporcionalmente */
+    object-fit: contain;       /* Mantiene la relación de aspecto original de la imagen */
+    display: block;            /* Convierte la imagen en un bloque */
+    margin-left: auto;         /* Centra la imagen horizontalmente */
+    margin-right: auto;   
+}
+
+.texto_desarrollo {
+    font-size: 26px;
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 20px;
+    text-align: center;
+}
