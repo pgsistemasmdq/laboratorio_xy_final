@@ -61,7 +61,6 @@ const habilitarFormulario = (flag) => {
 
         codigoInput.value = String(maxCodigo + 1);
         descripcionInput.value = "";
-        conservarCamaraInput.value = false;
 
     }
 
@@ -73,15 +72,24 @@ const habilitarFormulario = (flag) => {
  */
 
 const resetFormulario = () => {
-/*     formFields.forEach(field => {
+     formFields.forEach(field => {
         if (field.type !== "checkbox") {
             field.value = "";
         }
         field.checked = false; // Resetear checkbox
         field.disabled = true;
-    }); */
+    }); 
     formAceptarCancelar.style.display = "none";
     titulo.textContent = "ABM Reactivos";
+};
+
+const DeshabilitarFormulario = () => {
+    formFields.forEach(field => {
+       field.checked = false; // Resetear checkbox
+       field.disabled = true;
+   }); 
+   formAceptarCancelar.style.display = "none";
+   titulo.textContent = "ABM Reactivos";
 };
 
 //
@@ -314,9 +322,9 @@ aceptarBtn.addEventListener("click", () => {
                 background: "linear-gradient(to right, rgb(50, 61, 219), rgb(140, 118, 236))"
             }
         }).showToast();
+        console.log("ALTA: " , nuevaFila , unReactivo)
         seleccionarFila(nuevaFila, unReactivo);
 
-        //seleccionarPrimeraFila();
     } else {
         // MODIFICACION: Actualizar un reactivo existente
         console.log("Ejecutando acción para modificar");
@@ -370,10 +378,10 @@ aceptarBtn.addEventListener("click", () => {
             seleccionarFila(filaModificada, reactivo);
         }
 
-        //seleccionarPrimeraFila();
     }
     //
-    resetFormulario();
+
+    DeshabilitarFormulario();
     agregarBtn.disabled = false;
     editarBtn.disabled = false;
     borrarBtn.disabled = false;
@@ -470,6 +478,7 @@ function generarFilasTablaReactivos() {
 
 
 function seleccionarFila(fila, reactivo) {
+    console.log("seleccionarFila : " , fila);
     // Quitar selección previa
     const filas = document.querySelectorAll("#tablaReactivos tr");
     filas.forEach(f => f.classList.remove("selected"));
@@ -519,7 +528,6 @@ const seleccionarPrimeraFila = () => {
         console.log("La tabla no tiene filas.");
     }
 };
-
 
 
 /**
@@ -590,10 +598,6 @@ const buscarTabla = () => {
  * 
  */
 document.getElementById("buscarReactivo").addEventListener("click", buscarTabla);
-
-
-// Cargar la tabla con todos los reactivos
-//actualizarTabla(sistema.reactivos);
 
 
 document.addEventListener("DOMContentLoaded", () => {
