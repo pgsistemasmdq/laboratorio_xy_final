@@ -20,11 +20,7 @@ function inicializarPantallaReportes() {
             llenarComboboxReactivos()
             return getMovimientos();
         })
-        .then(() => {
-            // Generar las filas para los reactivos después de que estén cargados
-            //generarFilastablaMovimientos();
 
-        })
         .catch(error => {
             console.error("Error durante la inicialización de movimientos:", error);
         });

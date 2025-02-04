@@ -72,24 +72,24 @@ const habilitarFormulario = (flag) => {
  */
 
 const resetFormulario = () => {
-     formFields.forEach(field => {
+    formFields.forEach(field => {
         if (field.type !== "checkbox") {
             field.value = "";
         }
         field.checked = false; // Resetear checkbox
         field.disabled = true;
-    }); 
+    });
     formAceptarCancelar.style.display = "none";
     titulo.textContent = "ABM Reactivos";
 };
 
 const DeshabilitarFormulario = () => {
     formFields.forEach(field => {
-       field.checked = false; // Resetear checkbox
-       field.disabled = true;
-   }); 
-   formAceptarCancelar.style.display = "none";
-   titulo.textContent = "ABM Reactivos";
+        field.checked = false; // Resetear checkbox
+        field.disabled = true;
+    });
+    formAceptarCancelar.style.display = "none";
+    titulo.textContent = "ABM Reactivos";
 };
 
 //
@@ -120,7 +120,7 @@ borrarBtn.addEventListener("click", () => {
 
     if (!codigo) {
         mensajeAlert("Por favor, selecciona un reactivo para borrar.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
- 
+
         return;
     }
 
@@ -191,14 +191,23 @@ borrarBtn.addEventListener("click", () => {
     });
 });
 
-
 const borrarReactivo = (codigo) => {
+    const codigoNum = parseInt(codigo);
+
+    // Verificar si el reactivo está asociado a algún movimiento
+    const reactivoAsociado = sistema.movimientos.some(movimiento => movimiento.reactivo.codigo === codigoNum);
+
+    if (reactivoAsociado) {
+        mensajeAlert("No se puede borrar el reactivo porque está asociado a movimientos.", "rgb(247, 181, 27)", "rgb(247, 181, 27)");
+        return false; 
+    }
+
     // Eliminar del array `sistema.reactivos`
-    const index = sistema.reactivos.findIndex(r => r.codigo === parseInt(codigo));
+    const index = sistema.reactivos.findIndex(r => r.codigo === codigoNum);
     if (index !== -1) {
         sistema.reactivos.splice(index, 1);
     } else {
-        mensajeAlert("El reactivo no se encontró en el sistema.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
+        mensajeAlert("El reactivo no se encontró en el sistema.", "rgb(247, 27, 27)", "rgb(247, 27, 27)");
         return false;
     }
 
@@ -209,13 +218,14 @@ const borrarReactivo = (codigo) => {
     const fila = document.querySelector(`#tablaReactivos tbody tr[data-codigo="${codigo}"]`);
     if (fila) {
         fila.remove();
+        mensajeAlert("Reactivo eliminado exitosamente.", "rgb(27, 247, 27)", "rgb(100, 247, 100)");
         return true;
     } else {
-        mensajeAlert("No se encontró la fila correspondiente en la tabla.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
+        mensajeAlert("No se encontró la fila correspondiente en la tabla.", "rgb(247, 27, 27)", "rgb(247, 27, 27)");
         return false;
     }
-
 };
+
 
 // Evento para el botón Cancelar
 cancelarBtn.addEventListener("click", () => {
@@ -359,17 +369,8 @@ aceptarBtn.addEventListener("click", () => {
             celdas[5].textContent = fecha; // Columna Fecha
         }
 
-        // Mensaje de éxito
-        Toastify({
-            text: "Reactivo actualizado correctamente.",
-            duration: 2000,
-            close: true,
-            gravity: "bottom",
-            position: "right",
-            style: {
-                background: "linear-gradient(to right, rgb(50, 61, 219), rgb(140, 118, 236))"
-            }
-        }).showToast();
+        mensajeAlert("Reactivo actualizado correctamente.");
+
         // Seleccionar la fila modificada
         const filaModificada = document.querySelector(`#tablaReactivos tbody tr[data-codigo="${codigo}"]`);
         if (filaModificada) {
@@ -384,7 +385,7 @@ aceptarBtn.addEventListener("click", () => {
     editarBtn.disabled = false;
     borrarBtn.disabled = false;
 
-}); 
+});
 
 
 function inicializarPantallaReactivos() {
@@ -393,7 +394,7 @@ function inicializarPantallaReactivos() {
         .then(() => {
             // Llenar el combobox de proveedores después de cargar
             llenarComboboxProveedores();
-            
+
             // Luego cargar los reactivos
             return getReactivos();  // Asegúrate de que esta función devuelve la promesa de carga
         })
@@ -408,24 +409,15 @@ function inicializarPantallaReactivos() {
 
             // Seleccionar la primera fila después de cargar la tabla
             seleccionarPrimeraFila();
+            return getMovimientos();
+
         })
+
         .catch(error => {
             console.error("Error durante la inicialización de reactivos:", error);
         });
 }
 
-function llenarComboboxProveedores() {
-    const combobox = document.getElementById("proveedor");
-    combobox.innerHTML = ""; // Limpiar las opciones existentes
-
-    sistema.proveedores.forEach(proveedor => {
-        const option = document.createElement("option");
-        option.value = proveedor.codigo; // El código como valor de la opción
-        option.textContent = `${proveedor.razonSocial}`;
-        combobox.appendChild(option);
-    });
-
-}
 
 function generarFilasTablaReactivos() {
     const tabla = document.querySelector("#tablaReactivos tbody");
@@ -516,14 +508,14 @@ const seleccionarPrimeraFila = () => {
             codigo: primeraFila.dataset.codigo || "",
             descripcion: celdas[1]?.textContent.trim() || "",
 
-            proveedor: { codigo: parseInt(celdas[2]?.textContent.trim()) || 1, razonSocial: celdas[2]?.textContent.trim() }, 
+            proveedor: { codigo: parseInt(celdas[2]?.textContent.trim()) || 1, razonSocial: celdas[2]?.textContent.trim() },
             stock: celdas[3]?.textContent.trim() || 0,
             conservarCamara: primeraFila.dataset.conservarCamara === "true",
             fecha: celdas[5]?.textContent.trim() || ""
         };
 
         seleccionarFila(primeraFila, reactivo);
-    } 
+    }
 };
 
 
@@ -569,18 +561,8 @@ const buscarTabla = () => {
     if (datosFiltrados.length === 0) {
         // Si no hay resultados, resetea el formulario y muestra el mensaje adecuado
         resetFormulario();
-        Toastify({
-            text: "No hay resultados para la busqueda",
-            duration: 2000,
-            close: true,
-            gravity: "bottom", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "linear-gradient(to right,rgb(233, 38, 12),rgb(245, 228, 74))",
-            },
-            onClick: function () { } // Callback after click
-        }).showToast();
+        mensajeAlert("No hay resultados para la busqueda", "rgb(233, 38, 12)", "rgb(245, 228, 74)");
+
     } else {
         // Si hay resultados, actualiza la tabla y selecciona la primera fila
         actualizarTabla(datosFiltrados);
@@ -655,7 +637,7 @@ const abrirFormularioProveedor = () => {
             localStorage.setItem("proveedores", JSON.stringify(sistema.proveedores));
 
             // Recargar el combobox de proveedores
-            cargarComboboxProveedores();
+            llenarComboboxProveedores();
 
             // Mostrar mensaje de éxito
             Swal.fire("¡Proveedor agregado!", "El proveedor fue guardado correctamente.", "success");
@@ -663,19 +645,18 @@ const abrirFormularioProveedor = () => {
     });
 };
 
-// Función para cargar el combobox de proveedores
-const cargarComboboxProveedores = () => {
+function llenarComboboxProveedores() {
     const combobox = document.getElementById("proveedor");
-    combobox.innerHTML = ""; // Limpiar opciones existentes
+    combobox.innerHTML = "";
 
-    // Agregar las nuevas opciones
-    sistema.proveedores.forEach((proveedor) => {
+    sistema.proveedores.forEach(proveedor => {
         const option = document.createElement("option");
         option.value = proveedor.codigo;
-        option.textContent = `${proveedor.codigo} - ${proveedor.razonSocial}`;
+        option.textContent = `${proveedor.razonSocial}`;
         combobox.appendChild(option);
     });
-};
+
+}
 
 // Botón para abrir el formulario
 document.getElementById("agregarProveedor").addEventListener("click", abrirFormularioProveedor);
