@@ -1,4 +1,4 @@
-const PROVEEDOR_FROM_CONSTANT = [
+[
     {
         "codigo": 1,
         "razonSocial": "ROCHE",
@@ -59,4 +59,4 @@ const PROVEEDOR_FROM_CONSTANT = [
         "telefono": "11-6848484",
         "mail": "info@manlab.com"
     }
-];
+]

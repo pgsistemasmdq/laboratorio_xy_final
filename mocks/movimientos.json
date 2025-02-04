@@ -1,0 +1,262 @@
+[
+    {
+        "numero": 1,
+        "reactivo": {
+            "codigo": 109,
+            "descripcion": "UREA AR-2-U",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2024-12-28",
+        "movimiento": -8
+    },
+    {
+        "numero": 2,
+        "reactivo": {
+            "codigo": 103,
+            "descripcion": "ANTI-RNA",
+            "proveedor": {
+                "codigo": 2,
+                "razon_social": "ABBOT"
+            }
+        },
+        "fecha": "2025-01-19",
+        "movimiento": 41
+    },
+    {
+        "numero": 3,
+        "reactivo": {
+            "codigo": 100,
+            "descripcion": "GLUCEMIA AR-G",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2024-12-28",
+        "movimiento": 35
+    },
+    {
+        "numero": 4,
+        "reactivo": {
+            "codigo": 102,
+            "descripcion": "ACIDOS G-G",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2025-01-21",
+        "movimiento": -25
+    },
+    {
+        "numero": 5,
+        "reactivo": {
+            "codigo": 108,
+            "descripcion": "JERINGA + MARIPOSA",
+            "proveedor": {
+                "codigo": 3,
+                "razon_social": "ICNA"
+            }
+        },
+        "fecha": "2025-02-03",
+        "movimiento": -19
+    },
+    {
+        "numero": 6,
+        "reactivo": {
+            "codigo": 105,
+            "descripcion": "DESCARTADOR M",
+            "proveedor": {
+                "codigo": 5,
+                "razon_social": "MULTIENVASES"
+            }
+        },
+        "fecha": "2024-12-29",
+        "movimiento": 41
+    },
+    {
+        "numero": 7,
+        "reactivo": {
+            "codigo": 109,
+            "descripcion": "UREA AR-2-U",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2024-12-31",
+        "movimiento": 11
+    },
+    {
+        "numero": 8,
+        "reactivo": {
+            "codigo": 110,
+            "descripcion": "DILUYENTE",
+            "proveedor": {
+                "codigo": 4,
+                "razon_social": "PROVEEDURIA CENTRO BIOQ"
+            }
+        },
+        "fecha": "2025-01-12",
+        "movimiento": 29
+    },
+    {
+        "numero": 9,
+        "reactivo": {
+            "codigo": 104,
+            "descripcion": "JERINGA SMALL",
+            "proveedor": {
+                "codigo": 3,
+                "razon_social": "ICNA"
+            }
+        },
+        "fecha": "2025-01-19",
+        "movimiento": -16
+    },
+    {
+        "numero": 10,
+        "reactivo": {
+            "codigo": 110,
+            "descripcion": "DILUYENTE",
+            "proveedor": {
+                "codigo": 4,
+                "razon_social": "PROVEEDURIA CENTRO BIOQ"
+            }
+        },
+        "fecha": "2025-01-10",
+        "movimiento": -8
+    },
+    {
+        "numero": 11,
+        "reactivo": {
+            "codigo": 105,
+            "descripcion": "DESCARTADOR M",
+            "proveedor": {
+                "codigo": 5,
+                "razon_social": "MULTIENVASES"
+            }
+        },
+        "fecha": "2024-12-31",
+        "movimiento": -7
+    },
+    {
+        "numero": 12,
+        "reactivo": {
+            "codigo": 104,
+            "descripcion": "JERINGA SMALL",
+            "proveedor": {
+                "codigo": 3,
+                "razon_social": "ICNA"
+            }
+        },
+        "fecha": "2025-01-07",
+        "movimiento": 44
+    },
+    {
+        "numero": 13,
+        "reactivo": {
+            "codigo": 108,
+            "descripcion": "JERINGA + MARIPOSA",
+            "proveedor": {
+                "codigo": 3,
+                "razon_social": "ICNA"
+            }
+        },
+        "fecha": "2025-01-11",
+        "movimiento": 26
+    },
+    {
+        "numero": 14,
+        "reactivo": {
+            "codigo": 105,
+            "descripcion": "DESCARTADOR M",
+            "proveedor": {
+                "codigo": 5,
+                "razon_social": "MULTIENVASES"
+            }
+        },
+        "fecha": "2025-01-15",
+        "movimiento": -25
+    },
+    {
+        "numero": 15,
+        "reactivo": {
+            "codigo": 109,
+            "descripcion": "UREA AR-2-U",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2025-01-30",
+        "movimiento": 14
+    },
+    {
+        "numero": 16,
+        "reactivo": {
+            "codigo": 100,
+            "descripcion": "GLUCEMIA AR-G",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2025-01-27",
+        "movimiento": 19
+    },
+    {
+        "numero": 17,
+        "reactivo": {
+            "codigo": 108,
+            "descripcion": "JERINGA + MARIPOSA",
+            "proveedor": {
+                "codigo": 3,
+                "razon_social": "ICNA"
+            }
+        },
+        "fecha": "2024-12-31",
+        "movimiento": 20
+    },
+    {
+        "numero": 18,
+        "reactivo": {
+            "codigo": 109,
+            "descripcion": "UREA AR-2-U",
+            "proveedor": {
+                "codigo": 1,
+                "razon_social": "ROCHE"
+            }
+        },
+        "fecha": "2025-01-07",
+        "movimiento": 38
+    },
+    {
+        "numero": 19,
+        "reactivo": {
+            "codigo": 105,
+            "descripcion": "DESCARTADOR M",
+            "proveedor": {
+                "codigo": 5,
+                "razon_social": "MULTIENVASES"
+            }
+        },
+        "fecha": "2024-12-31",
+        "movimiento": -24
+    },
+    {
+        "numero": 20,
+        "reactivo": {
+            "codigo": 105,
+            "descripcion": "DESCARTADOR M",
+            "proveedor": {
+                "codigo": 5,
+                "razon_social": "MULTIENVASES"
+            }
+        },
+        "fecha": "2025-01-10",
+        "movimiento": 15
+    }
+]

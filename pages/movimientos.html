@@ -31,37 +31,28 @@
         </nav>
 
         <main class="main-content">
-            <h2 id="titulo">ABM Reactivos</h2>
+            <h2 id="titulo">Carga de Movimientos</h2>
             <div class="form-container">
-                <form id="reactivosForm">
+                <form id="movimientosForm">
                     <div class="form-group">
-                        <label for="codigo">Código:</label>
-                        <input type="text" id="codigo" maxlength="10" placeholder="Autonumerico" disabled>
+                        <label for="numero">Numero (id):</label>
+                        <input type="text" id="numero" maxlength="10" placeholder="Autonumerico" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="descripcion">Descripción:</label>
-                        <input type="text" id="descripcion" placeholder="Descripcion reactivo (Ej. Glucemia)" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="proveedor">Proveedor:</label>
+                        <label for="reactivo">Reactivo:</label>
                         <div class="input-with-button">
-                            <select id="proveedor" disabled>
-                                <option value="" disabled selected>Seleccione un proveedor</option>
+                            <select id="reactivo" disabled>
+                                <option value="" disabled selected>Seleccione un Reactivo</option>
                             </select>
-                            <button type="button" id="agregarProveedor" >+</button>
-
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="stock">Stock:</label>
-                        <input type="number" id="stock" placeholder="Ej: 50 (Solo Numeros)" disabled>
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" id="cantidad"  disabled>
+                        <p id="lblCantidad">Positivo=INGRESO / Negativo=EGRESO</p>
                     </div>
-                    <div class="form-group">
-                        <label for="conservarCamara">Conservar en Cámara:</label>
-                        <input type="checkbox" id="conservarCamara" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha">Fecha Vto:</label>
+                     <div class="form-group">
+                        <label for="fecha">Fecha Mov:</label>
                         <input type="date" id="fecha" disabled>
                     </div>
 
@@ -78,8 +69,6 @@
                 <!-- Botones principales -->
                 <div class="form-actions">
                     <button type="button" id="agregarBtn">Agregar</button>
-                    <button type="button" id="editarBtn" disabled>Editar</button>
-                    <button type="button" id="borrarBtn" disabled>Borrar</button>
                 </div>
 
             </div>
@@ -87,21 +76,21 @@
                 <!-- Controles de búsqueda -->
                 <div class="busqueda">
                     <input type="text" id="busqueda" placeholder="Buscar reactivo...">
-                    <button type="button" id="buscarReactivo">Buscar</button>
+                    <button type="button" id="buscarmovimiento">Buscar</button>
                 </div>
 
             </div>
 
-            <table id="tablaReactivos" class="tablaReactivos">
+            <table id="tablaMovimientos" class="tablaMovimientos">
                 <thead>
                     <tr>
-                        <th class="col-5">Código</th>
-                        <th class="col-40">Descripción</th>
-                        <th class="col-20">Proveedor</th>
-                        <th class="col-10">Stock</th>
-                        <th class="col-5">Cámara</th>
+                        <th class="col-10">Numero</th>
                         <th class="col-10">Fecha</th>
-                    </tr>
+                        <th class="col-10">Codigo</th>
+                        <th class="col-30">Reactivo</th>
+                        <th class="col-30">Proveedor</th>
+                        <th class="col-10">Cantidad</th>
+                      </tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -119,13 +108,14 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="../scripts/utilidades.js"></script>    
+    <script src="../scripts/utilidades.js"></script>
     <script src="../scripts/main.js"></script>
-    <script src="../api/apiReactivo.js"></script>
-    <script src="../api/apiProveedor.js"></script>
     <script src="../clases/Reactivo.js"></script>
     <script src="../clases/Proveedor.js"></script>
-    <script src="../scripts/formreactivos.js"></script>
+    <script src="../api/apiReactivo.js"></script>
+    <script src="../api/apiProveedor.js"></script>
+    <script src="../api/apiMovimientos.js"></script>
+    <script src="../scripts/formMovimientos.js"></script>
 </body>
 
 </html>

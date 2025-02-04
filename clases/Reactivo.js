@@ -1,6 +1,6 @@
 class Reactivo {
     constructor(codigo, descripcion, proveedor, stock, conservarCamara, fecha) {
-         this.codigo = codigo;
+        this.codigo = codigo;
         this.descripcion = descripcion;
         this.proveedor = proveedor;
         this.stock = stock;
@@ -23,29 +23,35 @@ class Reactivo {
         const nuevoReactivo = new Reactivo(parseInt(codigo), descripcion, parseInt(proveedor), parseInt(stock), conservarCamara, fecha);
         sistema.reactivos.push(nuevoReactivo);
 
-          // Guardar los reactivos después de agregar
+        // Guardar los reactivos después de agregar
         this.guardarReactivosEnStorage();
 
     }
-
 
     // Método para guardar los reactivos en localStorage y sessionStorage
     guardarReactivosEnStorage() {
         // Guardar en localStorage
         localStorage.setItem("reactivos", JSON.stringify(sistema.reactivos));
-
-
- }
-
-    // Método para cargar los reactivos desde localStorage o sessionStorage
-    cargarReactivosDesdeStorage() {
-        const reactivosLocal = localStorage.getItem("reactivos");
-        if (reactivosLocal) {
-            sistema.reactivos = JSON.parse(reactivosLocal);
-        }
-
     }
-    
+
+    cargarReactivosDesdeStorage() {
+        return new Promise((resolve, reject) => {
+            try {
+                const reactivosLocal = localStorage.getItem("reactivos");
+                if (reactivosLocal) {
+                    sistema.reactivos = JSON.parse(reactivosLocal);
+                    console.log("Reactivos cargados desde localStorage en la clase Reactivo.");
+                    resolve(sistema.reactivos);
+                } else {
+                    console.warn("No se encontraron reactivos en localStorage.");
+                    resolve([]);  // Resolver con un array vacío si no hay datos
+                }
+            } catch (error) {
+                reject("Error al cargar reactivos desde el storage: " + error);
+            }
+        });
+    }
+
     listarReactivos() {
         return sistema.reactivos.map(reactivo => {
             const proveedor = sistema.proveedores.find(p => p.codigo === reactivo.proveedor);
@@ -54,10 +60,10 @@ class Reactivo {
         }).join("\n");
     }
 
-    
+
     obtenerStock() {
         return `Stock actual: ${this.stock}`;
     }
 
- }
+}
 

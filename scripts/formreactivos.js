@@ -119,65 +119,78 @@ borrarBtn.addEventListener("click", () => {
     const descripcion = document.getElementById("descripcion").value.trim();
 
     if (!codigo) {
-        Toastify({
-            text: "Por favor, selecciona un reactivo para borrar.",
-            duration: 2000,
-            close: true,
-            gravity: "bottom", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "linear-gradient(to right,rgb(233, 38, 12),rgb(233, 38, 12))",
-            },
-            onClick: function () { } // Callback after click
-        }).showToast(); return;
+        mensajeAlert("Por favor, selecciona un reactivo para borrar.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
+ 
+        return;
     }
 
-    // Mostrar confirmación al usuario
-
+    // Mostrar confirmación al usuario con estilo minimalista
     Swal.fire({
-        title: `¿Estás seguro de que deseas borrar el reactivo?`,
-        text: `${codigo} - ${descripcion}`,
+        title: `<h4 style="margin-bottom: 10px;">¿Eliminar Reactivo?</h4>`,
+        html: `
+            <div style="font-size: 12px; line-height: 1.4; text-align: left;">
+                <strong>Código:</strong> ${codigo}<br>
+                <strong>Descripción:</strong> ${descripcion}
+            </div>
+        `,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, borrar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: '<i class="fas fa-check"></i> Sí',
+        cancelButtonText: '<i class="fas fa-times"></i> No',
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: 'swal-button swal-confirm',
+            cancelButton: 'swal-button swal-cancel'
+        },
+        backdrop: true,
+        width: '300px', // Tamaño reducido
+        padding: '10px', // Margen interno reducido
     }).then((result) => {
         if (result.isConfirmed) {
             // Llamar a la función para borrar el reactivo
             const resultado = borrarReactivo(parseInt(codigo));
 
             if (resultado) {
-
-                // Mostrar mensaje de éxito con SweetAlert2
+                // Mostrar mensaje de éxito
                 Swal.fire({
                     icon: 'success',
                     title: 'Eliminado',
-                    text: 'Reactivo eliminado correctamente.',
+                    html: `<p style="font-size: 12px;">El reactivo <strong>${codigo}</strong> fue eliminado correctamente.</p>`,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    background: '#f4f6f9',
+                    width: '300px'
+                });
+
+                // Resetear formulario y seleccionar la primera fila
+                resetFormulario();
+                seleccionarPrimeraFila();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    html: `<p style="font-size: 12px;">No se pudo eliminar el reactivo. Intenta nuevamente.</p>`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    background: '#fef0f0',
+                    width: '300px'
                 });
             }
-
-            // Resetear formulario
-            resetFormulario();
-            seleccionarPrimeraFila();
         } else {
-            // Si no se confirma la eliminación
+            // Mostrar mensaje de cancelación
             Swal.fire({
-                icon: 'error',
+                icon: 'info',
                 title: 'Cancelado',
-                text: 'Eliminación cancelada.',
+                html: `<p style="font-size: 12px;">No se realizaron cambios.</p>`,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
+                background: '#eaf4fc',
+                width: '300px'
             });
         }
     });
-
-
 });
+
 
 const borrarReactivo = (codigo) => {
     // Eliminar del array `sistema.reactivos`
@@ -185,7 +198,7 @@ const borrarReactivo = (codigo) => {
     if (index !== -1) {
         sistema.reactivos.splice(index, 1);
     } else {
-        alert("El reactivo no se encontró en el sistema.");
+        mensajeAlert("El reactivo no se encontró en el sistema.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
         return false;
     }
 
@@ -198,7 +211,7 @@ const borrarReactivo = (codigo) => {
         fila.remove();
         return true;
     } else {
-        alert("No se encontró la fila correspondiente en la tabla.");
+        mensajeAlert("No se encontró la fila correspondiente en la tabla.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
         return false;
     }
 
@@ -246,6 +259,10 @@ stockInput.addEventListener("blur", (e) => {
         e.target.value = "0"; // Establecer valor por defecto a 0
     }
 });
+//
+//
+// Evento para el botón Aceptar
+
 
 // Evento para el botón Aceptar
 aceptarBtn.addEventListener("click", () => {
@@ -258,17 +275,17 @@ aceptarBtn.addEventListener("click", () => {
 
     // Validaciones
     if (!descripcion || descripcion.length > 50) {
-        alert("La descripción debe tener entre 1 y 50 caracteres.");
+        mensajeAlert("La descripción debe tener entre 1 y 50 caracteres.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
         return;
     }
 
     if (isNaN(proveedorCodigo)) {
-        alert("Debe seleccionar un proveedor válido.");
+        mensajeAlert("Debe seleccionar un proveedor válido.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
         return;
     }
 
     if (isNaN(stock) || stock <= 0 || stock > 999999) {
-        alert("El stock debe ser un número entre 1 y 999999.");
+        mensajeAlert("El stock debe ser un número entre 1 y 999999.", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
         return;
     }
 
@@ -280,9 +297,6 @@ aceptarBtn.addEventListener("click", () => {
     }
 
     if (flagAbm === "ALTA") {
-        // ALTA: Crear un nuevo reactivo
-        console.log("Ejecutando acción para ALTA");
-
         const unReactivo = {
             codigo,
             descripcion,
@@ -297,7 +311,7 @@ aceptarBtn.addEventListener("click", () => {
 
         // Verificar si el código ya existe
         if (sistema.reactivos.some(r => r.codigo === unReactivo.codigo)) {
-            alert(`Ya existe un reactivo con el código: ${codigo}`);
+            mensajeAlert(`Ya existe un reactivo con el código: ${codigo}`, "rgb(247, 27, 27)", "rgb(247, 27, 27)")
             return;
         }
 
@@ -306,34 +320,18 @@ aceptarBtn.addEventListener("click", () => {
         localStorage.setItem("reactivos", JSON.stringify(sistema.reactivos));
 
         // Actualizar la tabla
-        //agregarFilaATabla(unReactivo);
         const nuevaFila = agregarFilaATabla(unReactivo);
-
-        console.log("Reactivo agregado:", unReactivo);
-
         // Mensaje de éxito
-        Toastify({
-            text: "Reactivo ingresado correctamente.",
-            duration: 2000,
-            close: true,
-            gravity: "bottom",
-            position: "right",
-            style: {
-                background: "linear-gradient(to right, rgb(50, 61, 219), rgb(140, 118, 236))"
-            }
-        }).showToast();
-        console.log("ALTA: " , nuevaFila , unReactivo)
+        mensajeAlert("Reactivo ingresado correctamente.", "rgb(50, 61, 219)", "rgb(140, 118, 236))")
         seleccionarFila(nuevaFila, unReactivo);
 
     } else {
-        // MODIFICACION: Actualizar un reactivo existente
-        console.log("Ejecutando acción para modificar");
 
         // Buscar el reactivo existente por su código
         const reactivo = sistema.reactivos.find(r => r.codigo === codigo);
 
         if (!reactivo) {
-            alert("El reactivo no se encuentra en el sistema.");
+            mensajeAlert("El reactivo no se encuentra en el sistema..", "rgb(247, 27, 27)", "rgb(247, 27, 27)")
             return;
         }
 
@@ -386,29 +384,34 @@ aceptarBtn.addEventListener("click", () => {
     editarBtn.disabled = false;
     borrarBtn.disabled = false;
 
-});
+}); 
+
 
 function inicializarPantallaReactivos() {
-    // Cargar proveedores desde localStorage
-    const proveedor = new Proveedor();
-    proveedor.cargarProveedoresDesdeStorage();
+    // Primero cargar los proveedores
+    getProveedores()
+        .then(() => {
+            // Llenar el combobox de proveedores después de cargar
+            llenarComboboxProveedores();
+            
+            // Luego cargar los reactivos
+            return getReactivos();  // Asegúrate de que esta función devuelve la promesa de carga
+        })
+        .then(() => {
+            // Generar las filas para los reactivos después de que estén cargados
+            generarFilasTablaReactivos();
 
-    // Llenar el combobox de proveedores
-    llenarComboboxProveedores();
+            // Habilitar los botones cuando todo esté listo
+            agregarBtn.disabled = false;
+            editarBtn.disabled = false;
+            borrarBtn.disabled = false;
 
-    // Cargar reactivos desde localStorage
-    const reactivo = new Reactivo();
-    reactivo.cargarReactivosDesdeStorage();
-
-
-    // Generar las filas de la tabla de reactivos
-    generarFilasTablaReactivos();
-
-    //HABILITAR BOTONES
-    agregarBtn.disabled = false;
-    editarBtn.disabled = false;
-    borrarBtn.disabled = false;
-
+            // Seleccionar la primera fila después de cargar la tabla
+            seleccionarPrimeraFila();
+        })
+        .catch(error => {
+            console.error("Error durante la inicialización de reactivos:", error);
+        });
 }
 
 function llenarComboboxProveedores() {
@@ -478,7 +481,6 @@ function generarFilasTablaReactivos() {
 
 
 function seleccionarFila(fila, reactivo) {
-    console.log("seleccionarFila : " , fila);
     // Quitar selección previa
     const filas = document.querySelectorAll("#tablaReactivos tr");
     filas.forEach(f => f.classList.remove("selected"));
@@ -513,20 +515,15 @@ const seleccionarPrimeraFila = () => {
         const reactivo = {
             codigo: primeraFila.dataset.codigo || "",
             descripcion: celdas[1]?.textContent.trim() || "",
-            //proveedor: parseInt(celdas[2]?.textContent.trim()) || 1,
 
-            proveedor: { codigo: parseInt(celdas[2]?.textContent.trim()) || 1, razonSocial: celdas[2]?.textContent.trim() }, // Asegurarte que proveedor es un objeto
-
+            proveedor: { codigo: parseInt(celdas[2]?.textContent.trim()) || 1, razonSocial: celdas[2]?.textContent.trim() }, 
             stock: celdas[3]?.textContent.trim() || 0,
             conservarCamara: primeraFila.dataset.conservarCamara === "true",
             fecha: celdas[5]?.textContent.trim() || ""
         };
 
-        // Usar la función existente para seleccionar la fila
         seleccionarFila(primeraFila, reactivo);
-    } else {
-        console.log("La tabla no tiene filas.");
-    }
+    } 
 };
 
 
@@ -591,7 +588,97 @@ const buscarTabla = () => {
     }
 
 };
+//************* */
+// Función para abrir el formulario de SweetAlert2 para agregar un proveedor
+const abrirFormularioProveedor = () => {
+    Swal.fire({
+        title: "Agregar Nuevo Proveedor",
+        html: `
+            <form id="formProveedor" style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start; font-size: 14px;">
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <label for="razonSocial" style="margin-right: 10px;">Razón Social:</label>
+                    <input id="razonSocial" type="text" placeholder="Razón Social" style="flex-grow: 1;" required maxlength="50">
+                </div>
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <label for="telefono" style="margin-right: 10px;">Teléfono:</label>
+                    <input id="telefono" type="text" placeholder="Teléfono" style="flex-grow: 1;" required pattern="^[0-9]+$" maxlength="15">
+                </div>
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <label for="mail" style="margin-right: 10px;">Correo:</label>
+                    <input id="mail" type="email" placeholder="Correo Electrónico" style="flex-grow: 1;" required>
+                </div>
+            </form>
+        `,
+        confirmButtonText: "Guardar",
+        cancelButtonText: "Cancelar",
+        showCancelButton: true,
+        focusConfirm: false,
+        preConfirm: () => {
+            // Validar campos antes de cerrar el formulario
+            const razonSocial = document.getElementById("razonSocial").value.trim();
+            const telefono = document.getElementById("telefono").value.trim();
+            const mail = document.getElementById("mail").value.trim();
 
+            if (!razonSocial || !telefono || !mail) {
+                Swal.showValidationMessage("Todos los campos son obligatorios.");
+                return false;
+            }
+
+            if (!/^[0-9]+$/.test(telefono)) {
+                Swal.showValidationMessage("El teléfono debe contener solo números.");
+                return false;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
+                Swal.showValidationMessage("Ingresa un correo electrónico válido.");
+                return false;
+            }
+
+            return { razonSocial, telefono, mail };
+        },
+        backdrop: true, // Bloquea interacción con el formulario original
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const { razonSocial, telefono, mail } = result.value;
+
+            // Generar el nuevo código de proveedor
+            const maxCodigo = Math.max(...sistema.proveedores.map(p => p.codigo), 0);
+            const nuevoProveedor = {
+                codigo: maxCodigo + 1,
+                razonSocial,
+                telefono,
+                mail
+            };
+
+            // Guardar el nuevo proveedor
+            sistema.proveedores.push(nuevoProveedor);
+            localStorage.setItem("proveedores", JSON.stringify(sistema.proveedores));
+
+            // Recargar el combobox de proveedores
+            cargarComboboxProveedores();
+
+            // Mostrar mensaje de éxito
+            Swal.fire("¡Proveedor agregado!", "El proveedor fue guardado correctamente.", "success");
+        }
+    });
+};
+
+// Función para cargar el combobox de proveedores
+const cargarComboboxProveedores = () => {
+    const combobox = document.getElementById("proveedor");
+    combobox.innerHTML = ""; // Limpiar opciones existentes
+
+    // Agregar las nuevas opciones
+    sistema.proveedores.forEach((proveedor) => {
+        const option = document.createElement("option");
+        option.value = proveedor.codigo;
+        option.textContent = `${proveedor.codigo} - ${proveedor.razonSocial}`;
+        combobox.appendChild(option);
+    });
+};
+
+// Botón para abrir el formulario
+document.getElementById("agregarProveedor").addEventListener("click", abrirFormularioProveedor);
 
 /**
  * CREAR EVENTO DEL BOTON DE BUSQUEDA buscarReactivo

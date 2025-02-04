@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="../img/favicon.webp" type="image/x-icon">
 </head>
+
 <body>
     <header>
         <div class="title">
-            <a href="../index.html" ><img src="../img/logo.webp" alt="Logo"></a>
+            <a href="../index.html"><img src="../img/logo.webp" alt="Logo"></a>
             <h1>GESTIÓN DE REACTIVOS</h1>
         </div>
         <div class="date-time" id="dateTime"></div>
@@ -19,18 +21,62 @@
     <div class="container">
         <nav class="sidebar">
             <a href="../pages/reactivos.html">📦 Reactivos</a>
-            <a href="../pages/pedidos.html" >🛒 Pedidos</a>
-            <a href="../pages/reportes.html" >📄 Reportes</a>
-            <a href="../pages/tablero.html" >📊 Estadísticas</a>
+            <a href="../pages/movimientos.html">🛒 Movimientos</a>
+            <a href="../pages/reportes.html">📄 Reportes</a>
+            <a href="../pages/tablero.html">📊 Estadísticas</a>
             <div class="divider"></div>
-            <a href="../pages/configuracion.html" >⚙️ Configuración</a>
-            <a href="../pages/usuarios.html" >👤 Usuario</a>
+            <a href="../pages/configuracion.html">⚙️ Configuración</a>
         </nav>
 
         <main class="main-content">
-            <h2 clase = "h2_desarrollo">Reportes</h2>
-            <img class = "imagen_desarrollo" src="../img/development-4536630_640.png" alt="En desarrollo">
-            <p class = "texto_desarrollo">La opción seleccionada se encuentra en desarrollo</p>
+            <h2 clase="h2_desarrollo">Reporte de Movimientos</h2>
+            <div id="filtros">
+                <div class="filtro-item">
+                    <label for="fechaDesde">Desde:</label>
+                    <input type="date" id="fechaDesde">
+                </div>
+
+                <div class="filtro-item">
+                    <label for="fechaHasta">Hasta:</label>
+                    <input type="date" id="fechaHasta">
+                </div>
+
+                <div class="filtro-item">
+                    <label for="proveedorFiltro">Proveedor:</label>
+                    <select id="proveedorFiltro">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filtro-item">
+                    <label for="reactivoFiltro">Reactivo:</label>
+                    <select id="reactivoFiltro">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filtro-botones">
+                    <button id="filtrarBtn">Filtrar</button>
+                    <button id="inicializarFiltros">Limpiar Filtros</button>
+                </div>
+            </div>
+
+            <!-- Tabla de reportes -->
+            <table id="tablaReportes">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Fecha</th>
+                        <th>Reactivo</th>
+                        <th>Descripción</th>
+                        <th>Proveedor</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
         </main>
     </div>
 
@@ -43,5 +89,18 @@
             <p>Desarrollado por <strong>Pablo Gimenez</strong></p>
         </div>
     </footer>
- </body>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="../scripts/utilidades.js"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../clases/Reactivo.js"></script>
+    <script src="../clases/Proveedor.js"></script>
+    <script src="../api/apiReactivo.js"></script>
+    <script src="../api/apiProveedor.js"></script>
+    <script src="../api/apiMovimientos.js"></script>
+    <script src="../scripts/formReportes.js"></script>
+
+</body>
+
 </html>

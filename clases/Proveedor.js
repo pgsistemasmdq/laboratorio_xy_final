@@ -35,24 +35,30 @@ class Proveedor {
         return false;
     }
 
-     // Método para guardar los proveedores en localStorage y sessionStorage
+    // Método para guardar los proveedores en localStorage y sessionStorage
     guardarProveedoresEnStorage() {
         // Guardar en localStorage
         localStorage.setItem("proveedores", JSON.stringify(sistema.proveedores));
 
     }
 
-    // Método para cargar los proveedores desde localStorage o sessionStorage
     cargarProveedoresDesdeStorage() {
-        const proveedoresLocal = localStorage.getItem("proveedores");
-        if (proveedoresLocal) {
-            sistema.proveedores = JSON.parse(proveedoresLocal);
-        }
-        
+        return new Promise((resolve, reject) => {
+            try {
+                const proveedoresLocal = localStorage.getItem("proveedores");
+                if (proveedoresLocal) {
+                    sistema.proveedores = JSON.parse(proveedoresLocal);
+                    resolve(sistema.proveedores);
+                } else {
+                    console.warn("No se encontraron proveedores en localStorage.");
+                    resolve([]);  // Resolver con un array vacío si no hay datos
+                }
+            } catch (error) {
+                reject("Error al cargar proveedores desde el storage: " + error);
+            }
+        });
     }
 
-
-     
     listarProveedores() {
         return sistema.proveedores.map(proveedor => proveedor.toString()).join("\n");
     }
